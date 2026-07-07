@@ -1,0 +1,22 @@
+<section class="hero">
+  <h1>Recipe Collection</h1>
+  <p>Browse a selection of easy and delicious dishes you can try at home.</p>
+</section>
+
+<section class="section">
+  <div class="card-grid">
+    <% @recipes.each do |recipe| %>
+  <article class="recipe-card">
+    <div class="card-image">🍽️</div>
+    <div class="card-content">
+      <h3><%= recipe.title %></h3>
+      <p><%= recipe.description %></p>
+      <div class="card-meta">
+        <span><%= recipe.category %></span>
+        <span><%= recipe.time %></span>
+      </div>
+    </div>
+  </article>
+<% end %>
+  </div>
+</section>

@@ -1,10 +1,201 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #fffaf5;
+  color: #2f241d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(88, 42, 12, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand a {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #8a3f0f;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+.page-content {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3.5rem;
+}
+
+.hero {
+  background: linear-gradient(135deg, #fff3e6 0%, #ffe8c2 100%);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 14px 35px rgba(120, 60, 15, 0.12);
+}
+
+.hero h1 {
+  font-size: 2.3rem;
+  margin-bottom: 0.7rem;
+  color: #7c3d12;
+}
+
+.hero p {
+  max-width: 700px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #5c4331;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #8a3f0f;
+  color: white;
+}
+
+.btn-secondary {
+  background: white;
+  color: #8a3f0f;
+  border: 1px solid #f4c97d;
+}
+
+.section {
+  margin-top: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #7c3d12;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(66, 41, 17, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(66, 41, 17, 0.12);
+}
+
+.card-image {
+  background: linear-gradient(135deg, #ffd59e 0%, #ffb05c 100%);
+  padding: 1.2rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.card-content {
+  padding: 1rem 1rem 1.2rem;
+}
+
+.card-content h3 {
+  margin: 0 0 0.45rem;
+  color: #5d3412;
+}
+
+.card-content p {
+  margin: 0;
+  line-height: 1.6;
+  color: #6e5644;
+}
+
+.card-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.8rem;
+}
+
+.card-meta span {
+  background: #fff3e6;
+  color: #8a3f0f;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.info-card {
+  background: white;
+  border-radius: 18px;
+  padding: 1.4rem;
+  box-shadow: 0 10px 24px rgba(66, 41, 17, 0.08);
+  margin-top: 1rem;
+}
+
+.info-card h2 {
+  margin-top: 0;
+  color: #7c3d12;
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .hero {
+    padding: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+}

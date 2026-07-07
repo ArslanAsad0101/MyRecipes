@@ -1,2 +1,31 @@
-<h1>Welcome to My Recipes</h1>
-<p>This is a simple recipe app built with Ruby on Rails.</p>`
+<section class="hero">
+  <h1>Welcome to My Recipes</h1>
+  <p>Discover fresh ideas for breakfast, lunch, dinner, and cozy snacks in one beautiful place.</p>
+
+  <div class="hero-actions">
+    <%= link_to "Explore Recipes", recipes_path, class: "btn btn-primary" %>
+    <%= link_to "Learn More", about_path, class: "btn btn-secondary" %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h2>Featured Recipes</h2>
+  </div>
+
+  <div class="card-grid">
+    <% @featured_recipes.each do |recipe| %>
+      <article class="recipe-card">
+        <div class="card-image">🍲</div>
+        <div class="card-content">
+          <h3><%= recipe[:title] %></h3>
+          <p><%= recipe[:description] %></p>
+          <div class="card-meta">
+            <span><%= recipe[:category] %></span>
+            <span><%= recipe[:time] %></span>
+          </div>
+        </div>
+      </article>
+    <% end %>
+  </div>
+</section>
