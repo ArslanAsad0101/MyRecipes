@@ -14,7 +14,7 @@
       </div>
     <% end %>
 
-    <%= form_with model: @recipe, url: recipe_path(@recipe), local: true, method: :patch do |form| %>
+    <%= form_with model: @recipe, url: recipe_path(@recipe), local: true, method: :patch, html: { multipart: true } do |form| %>
       <div class="form-field">
         <%= form.label :title %>
         <%= form.text_field :title %>
@@ -34,6 +34,23 @@
         <%= form.label :time %>
         <%= form.text_field :time %>
       </div>
+
+      <div class="form-field">
+        <%= form.label :image_file, "Recipe image" %>
+        <%= form.file_field :image_file, accept: "image/*" %>
+        <p class="form-help">Upload a new photo from your computer, or leave blank to keep the current image.</p>
+      </div>
+
+      <% if @recipe.image.present? && @recipe.image != "default_recipe.svg" %>
+        <div class="form-field image-preview-field">
+          <p>Current image</p>
+          <%= image_tag @recipe.image_url, class: "recipe-image-preview" %>
+          <div class="form-checkbox">
+            <%= form.check_box :remove_image, {}, "1", "0" %>
+            <%= form.label :remove_image, "Remove current image" %>
+          </div>
+        </div>
+      <% end %>
 
       <div class="form-field" data-controller="ingredient-select">
         <%= form.label :ingredient_ids, "Ingredients" %>

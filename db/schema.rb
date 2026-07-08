@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_153000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_08_160000) do
   create_table "chefs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -82,6 +82,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_153000) do
     t.integer "chef_id", null: false
     t.datetime "created_at", null: false
     t.text "description"
+    t.string "image", default: "default_recipe.svg", null: false
     t.integer "likes_count", default: 0, null: false
     t.string "time"
     t.string "title"

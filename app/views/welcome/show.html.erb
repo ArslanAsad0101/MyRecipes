@@ -1,7 +1,11 @@
-<section class="hero">
-  <h1><%= @recipe.title %></h1>
-  <p class="subheading">By <%= @recipe.chef.name %> • <%= @recipe.category %> • <%= @recipe.time %></p>
-  <p><%= @recipe.description %></p>
+<section class="hero recipe-show-hero">
+  <div class="recipe-show-image">
+    <%= image_tag @recipe.image_url, alt: @recipe.title %>
+  </div>
+  <div class="recipe-show-meta">
+    <h1><%= @recipe.title %></h1>
+    <p class="subheading">By <%= @recipe.chef.name %> • <%= @recipe.category %> • <%= @recipe.time %></p>
+    <p><%= @recipe.description %></p>
   <% if @recipe.ingredients.any? %>
     <div class="ingredient-tags">
       <% @recipe.ingredients.order(:name).each do |ingredient| %>
