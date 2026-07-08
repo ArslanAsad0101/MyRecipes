@@ -1,0 +1,48 @@
+<section class="section">
+  <div class="form-card">
+    <h2>Sign up as Chef</h2>
+    <p>Only chefs can add or edit recipes.</p>
+    <p><strong>Step 1:</strong> Enter your name and email.</p>
+    <p><strong>Step 2:</strong> Choose a password with at least 6 characters.</p>
+    <p><strong>Step 3:</strong> After signing up, log in and start adding recipes.</p>
+
+    <% if @chef.errors.any? %>
+      <div class="info-card">
+        <h3>Please fix these errors:</h3>
+        <ul>
+          <% @chef.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @chef, url: chef_signup_path, local: true do |form| %>
+      <div class="form-field">
+        <%= form.label :name %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :email %>
+        <%= form.email_field :email %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :password %>
+        <%= form.password_field :password %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :password_confirmation %>
+        <%= form.password_field :password_confirmation %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Create Chef Account", class: "btn btn-primary" %>
+        <%= link_to "Login as Chef", chef_login_path, class: "btn btn-secondary" %>
+        <%= link_to "Back to Recipes", recipes_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</section>

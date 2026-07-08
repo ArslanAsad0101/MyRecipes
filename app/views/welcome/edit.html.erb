@@ -1,6 +1,18 @@
 <section class="section">
   <div class="form-card">
     <h2>Edit Recipe</h2>
+    <p>Update your recipe details here. The changes will be saved to your account.</p>
+
+    <% if @recipe.errors.any? %>
+      <div class="info-card">
+        <h3>Please fix these errors:</h3>
+        <ul>
+          <% @recipe.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
     <%= form_with model: @recipe, url: recipe_path(@recipe), local: true, method: :patch do |form| %>
       <div class="form-field">

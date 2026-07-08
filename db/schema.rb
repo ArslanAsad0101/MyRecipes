@@ -10,13 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_07_125410) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_08_075239) do
+  create_table "chefs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "password_digest"
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_chefs_on_email", unique: true
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "category"
+    t.integer "chef_id", null: false
     t.datetime "created_at", null: false
     t.text "description"
     t.string "time"
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_recipes_on_chef_id"
   end
+
+  add_foreign_key "recipes", "chefs"
 end

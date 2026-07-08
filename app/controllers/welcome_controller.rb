@@ -1,13 +1,18 @@
 class WelcomeController < ApplicationController
+  before_action :require_chef!, only: %i[new create edit update]
+
   def index
-    @featured_recipes = Recipe.order(:created_at).limit(3)
+    @featured_recipes = Recipe.includes(:chef).order(created_at: :desc)
   end
 
   def about
   end
 
   def recipes
-    @recipes = Recipe.order(:created_at).reverse_order
+    redirect_to chef_signup_path, alert: "Please sign up as a chef to view your recipes." unless chef_signed_in?
+    return if performed?
+
+    @recipes = current_chef.recipes.includes(:chef).order(created_at: :desc)
   end
 
   def new
@@ -15,7 +20,7 @@ class WelcomeController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.new(recipe_params)
+    @recipe = current_chef.recipes.new(recipe_params)
 
     if @recipe.save
       redirect_to recipes_path, notice: "Recipe created successfully."
@@ -25,17 +30,54 @@ class WelcomeController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
+    @recipe = current_chef.recipes.find(params[:id])
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
+    @recipe = current_chef.recipes.find(params[:id])
 
     if @recipe.update(recipe_params)
       redirect_to recipes_path, notice: "Recipe updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def signup
+    @chef = Chef.new
+  end
+
+  def create_chef
+    @chef = Chef.new(chef_params)
+
+    if @chef.save
+      session[:chef_id] = @chef.id
+      redirect_to recipes_path, notice: "Chef account created successfully."
+    else
+      render :signup, status: :unprocessable_entity
+    end
+  end
+
+  def login
+    @chef = Chef.new
+  end
+
+  def create_login
+    @chef = Chef.find_by(email: params[:chef][:email])
+
+    if @chef&.authenticate(params[:chef][:password])
+      session[:chef_id] = @chef.id
+      redirect_to recipes_path, notice: "Welcome back, #{@chef.name}."
+    else
+      @chef = Chef.new(email: params[:chef][:email])
+      flash.now[:alert] = "Invalid email or password."
+      render :login, status: :unprocessable_entity
+    end
+  end
+
+  def logout
+    session[:chef_id] = nil
+    redirect_to recipes_path, notice: "You have been logged out."
   end
 
   def contact
@@ -45,5 +87,9 @@ class WelcomeController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title, :description, :category, :time)
+  end
+
+  def chef_params
+    params.require(:chef).permit(:name, :email, :password, :password_confirmation)
   end
 end

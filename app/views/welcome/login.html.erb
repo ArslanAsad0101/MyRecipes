@@ -1,0 +1,30 @@
+<section class="section">
+  <div class="form-card">
+    <h2>Login as Chef</h2>
+    <p>Access your recipes using the email you signed up with.</p>
+    <p><strong>Tip:</strong> If you are new, use the sign-up link first.</p>
+
+    <% if flash[:alert].present? %>
+      <div class="info-card">
+        <p><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+
+    <%= form_with url: chef_login_path, scope: :chef, local: true do |form| %>
+      <div class="form-field">
+        <%= form.label :email %>
+        <%= form.email_field :email %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :password %>
+        <%= form.password_field :password %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Login", class: "btn btn-primary" %>
+        <%= link_to "Sign up as Chef", chef_signup_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</section>

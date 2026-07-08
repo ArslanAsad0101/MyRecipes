@@ -10,7 +10,7 @@
 
 <section class="section">
   <div class="section-header">
-    <h2>Featured Recipes</h2>
+    <h2>Global Recipes</h2>
   </div>
 
   <div class="card-grid">
@@ -18,11 +18,12 @@
       <article class="recipe-card">
         <div class="card-image">🍲</div>
         <div class="card-content">
-          <h3><%= recipe[:title] %></h3>
-          <p><%= recipe[:description] %></p>
+          <h3><%= recipe.title %></h3>
+          <p><%= recipe.description %></p>
           <div class="card-meta">
-            <span><%= recipe[:category] %></span>
-            <span><%= recipe[:time] %></span>
+            <span><%= recipe.category %></span>
+            <span><%= recipe.time %></span>
+            <span>By <%= recipe.chef.name %></span>
           </div>
         </div>
       </article>

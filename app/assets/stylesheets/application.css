@@ -176,6 +176,16 @@ a {
   margin-top: 0.9rem;
 }
 
+.chef-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: #fff3e6;
+  color: #8a3f0f;
+  font-weight: 600;
+}
+
 .form-card {
   background: white;
   border-radius: 18px;

@@ -1,16 +1,20 @@
 <section class="hero">
-  <h1>Recipe Collection</h1>
-  <p>Browse a selection of easy and delicious dishes you can try at home.</p>
+  <h1>Your Chef Recipes</h1>
+  <p>Manage the recipes you created as a chef.</p>
+  <p><strong>How to use:</strong> Click “Add New Recipe” to create one, or use “Edit” on any card to update it.</p>
   <div class="hero-actions">
     <%= link_to "Add New Recipe", new_recipe_path, class: "btn btn-primary" %>
   </div>
 </section>
 
 <section class="section">
+  <div class="section-header">
+    <h2>Your Recipes</h2>
+  </div>
   <div class="card-grid">
     <% @recipes.each do |recipe| %>
       <article class="recipe-card">
-        <div class="card-image">🍽️</div>
+        <div class="card-image">🍳</div>
         <div class="card-content">
           <h3><%= recipe.title %></h3>
           <p><%= recipe.description %></p>

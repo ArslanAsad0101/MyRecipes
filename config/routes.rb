@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   get "recipes/:id/edit", to: "welcome#edit", as: :edit_recipe
   patch "recipes/:id", to: "welcome#update", as: :recipe
   put "recipes/:id", to: "welcome#update"
+  get "chef/signup", to: "welcome#signup", as: :chef_signup
+  post "chef/signup", to: "welcome#create_chef"
+  get "chef/login", to: "welcome#login", as: :chef_login
+  post "chef/login", to: "welcome#create_login"
+  delete "chef/logout", to: "welcome#logout", as: :chef_logout
   get "contact", to: "welcome#contact"
 
   get "up" => "rails/health#show", as: :rails_health_check
