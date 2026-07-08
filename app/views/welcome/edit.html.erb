@@ -1,0 +1,32 @@
+<section class="section">
+  <div class="form-card">
+    <h2>Edit Recipe</h2>
+
+    <%= form_with model: @recipe, url: recipe_path(@recipe), local: true, method: :patch do |form| %>
+      <div class="form-field">
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :description %>
+        <%= form.text_area :description %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :category %>
+        <%= form.text_field :category %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :time %>
+        <%= form.text_field :time %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Update Recipe", class: "btn btn-primary" %>
+        <%= link_to "Back to Recipes", recipes_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</section>
