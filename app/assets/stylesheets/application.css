@@ -130,6 +130,40 @@ a {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.recipe-like-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.95rem 1rem 1rem;
+  border-top: 1px solid #f3e0c5;
+  background: #fff9f3;
+}
+
+.like-button {
+  border: none;
+  background: #ffe2cc;
+  color: #7c3d12;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.like-button:hover {
+  background: #f9c7a2;
+}
+
+.like-button.liked {
+  background: #8a3f0f;
+  color: white;
+}
+
+.like-count {
+  font-weight: 700;
+  color: #8a3f0f;
+}
+
 .card-link {
   display: block;
   color: inherit;

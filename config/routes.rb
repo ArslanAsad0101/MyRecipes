@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :recipes, only: [] do
     resources :comments, only: :create
+    resources :recipe_likes, only: :create
   end
 
   resources :ingredients, only: %i[index new create]
