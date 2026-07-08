@@ -1,0 +1,34 @@
+<section class="hero">
+  <h1>Meet the Chefs</h1>
+  <p>Browse every chef in MyRecipes and see how many recipes they have shared.</p>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h2>Chefs</h2>
+  </div>
+
+  <% if @chefs.any? %>
+    <div class="card-grid">
+      <% @chefs.each do |chef| %>
+        <article class="recipe-card">
+          <div class="card-image">👨‍🍳</div>
+          <div class="card-content">
+            <h3><%= chef.name %></h3>
+            <p><%= chef.email %></p>
+            <div class="card-meta">
+              <span><%= chef.recipes_count.to_i %> recipes</span>
+            </div>
+            <div class="card-actions">
+              <%= link_to "View Recipes", chef_recipes_path(chef), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>No chefs have joined the community yet.</p>
+    </div>
+  <% end %>
+</section>

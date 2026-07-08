@@ -8,6 +8,18 @@ class WelcomeController < ApplicationController
   def about
   end
 
+  def chefs
+    @chefs = Chef.left_joins(:recipes)
+                .select("chefs.*, COUNT(recipes.id) AS recipes_count")
+                .group("chefs.id")
+                .order(:name)
+  end
+
+  def chef_recipes
+    @chef = Chef.find(params[:id])
+    @recipes = @chef.recipes.includes(:chef, :ingredients).order(created_at: :desc)
+  end
+
   def recipes
     redirect_to chef_signup_path, alert: "Please sign up as a chef to view your recipes." unless chef_signed_in?
     return if performed?
@@ -27,6 +39,12 @@ class WelcomeController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @recipe = Recipe.includes(:chef, :ingredients, comments: :chef).find(params[:id])
+    @comments = @recipe.comments.order(created_at: :desc)
+    @comment = Comment.new
   end
 
   def edit

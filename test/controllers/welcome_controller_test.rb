@@ -38,4 +38,26 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Updated Title", recipe.reload.title
     assert_equal "Updated description", recipe.reload.description
   end
+
+  test "shows all chefs with their recipe counts" do
+    other_chef = Chef.create!(name: "Other Chef", email: "other-chef@example.com", password: "password")
+    Recipe.create!(title: "Soup", description: "Warm soup", category: "Dinner", time: "15 min", chef: @chef)
+    Recipe.create!(title: "Salad", description: "Fresh salad", category: "Lunch", time: "10 min", chef: other_chef)
+
+    get chefs_path
+
+    assert_response :success
+    assert_select "h2", /Chefs/
+    assert_select "a[href=?]", chef_recipes_path(other_chef)
+  end
+
+  test "shows recipes for a selected chef" do
+    other_chef = Chef.create!(name: "Other Chef", email: "other-chef@example.com", password: "password")
+    recipe = Recipe.create!(title: "Salad", description: "Fresh salad", category: "Lunch", time: "10 min", chef: other_chef)
+
+    get chef_recipes_path(other_chef)
+
+    assert_response :success
+    assert_select "h3", recipe.title
+  end
 end

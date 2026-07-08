@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_120001) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_08_150000) do
   create_table "chefs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -18,6 +18,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_120001) do
     t.string "password_digest"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_chefs_on_email", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.integer "chef_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "recipe_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_comments_on_chef_id"
+    t.index ["recipe_id"], name: "index_comments_on_recipe_id"
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -66,6 +76,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_120001) do
     t.index ["chef_id"], name: "index_recipes_on_chef_id"
   end
 
+  add_foreign_key "comments", "chefs"
+  add_foreign_key "comments", "recipes"
   add_foreign_key "messages", "chefs"
   add_foreign_key "messages", "conversations"
   add_foreign_key "recipe_ingredients", "ingredients"

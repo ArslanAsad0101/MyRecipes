@@ -1,0 +1,34 @@
+<section class="hero">
+  <h1><%= @recipe.title %></h1>
+  <p class="subheading">By <%= @recipe.chef.name %> • <%= @recipe.category %> • <%= @recipe.time %></p>
+  <p><%= @recipe.description %></p>
+  <% if @recipe.ingredients.any? %>
+    <div class="ingredient-tags">
+      <% @recipe.ingredients.order(:name).each do |ingredient| %>
+        <span class="ingredient-tag"><%= ingredient.name %></span>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="hero-actions">
+    <%= link_to "Back to Recipes", recipes_path, class: "btn btn-secondary" %>
+    <%= link_to "Edit Recipe", edit_recipe_path(@recipe), class: "btn btn-primary" if chef_signed_in? && @recipe.chef == current_chef %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <h2>Comments</h2>
+  </div>
+
+  <%= turbo_stream_from @recipe %>
+
+  <div class="comments-panel">
+    <div id="comment_form">
+      <%= render "comments/form", recipe: @recipe, comment: @comment %>
+    </div>
+
+    <div id="comments" class="comments-list">
+      <%= render partial: "comments/comment", collection: @comments, as: :comment %>
+    </div>
+  </div>
+</section>

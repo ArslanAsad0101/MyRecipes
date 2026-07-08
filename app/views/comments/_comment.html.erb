@@ -1,0 +1,7 @@
+<article class="comment-card">
+  <div class="comment-header">
+    <strong><%= comment.chef.name %></strong>
+    <span class="comment-date"><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></span>
+  </div>
+  <p><%= comment.body %></p>
+</article>

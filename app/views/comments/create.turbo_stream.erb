@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "comment_form" do %>
+  <%= render partial: "comments/form", locals: { recipe: @recipe, comment: Comment.new } %>
+<% end %>

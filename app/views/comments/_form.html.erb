@@ -1,0 +1,26 @@
+<div class="comment-form">
+  <% if chef_signed_in? %>
+    <%= form_with model: [recipe, comment], local: false do |form| %>
+      <% if comment.errors.any? %>
+        <div class="form-errors">
+          <p><strong>Unable to save comment:</strong></p>
+          <ul>
+            <% comment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :body, "Add your comment" %>
+        <%= form.text_area :body, rows: 4, class: "form-control", placeholder: "Write your comment here..." %>
+      </div>
+      <div class="form-actions">
+        <%= form.submit "Post Comment", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Please <%= link_to "login", chef_login_path %> or <%= link_to "sign up", chef_signup_path %> to leave a comment.</p>
+  <% end %>
+</div>

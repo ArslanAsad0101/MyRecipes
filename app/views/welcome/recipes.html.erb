@@ -14,24 +14,27 @@
   <div class="card-grid">
     <% @recipes.each do |recipe| %>
       <article class="recipe-card">
-        <div class="card-image">🍳</div>
-        <div class="card-content">
-          <h3><%= recipe.title %></h3>
-          <p><%= recipe.description %></p>
-          <div class="card-meta">
-            <span><%= recipe.category %></span>
-            <span><%= recipe.time %></span>
-          </div>
-          <% if recipe.ingredients.any? %>
-            <div class="ingredient-tags">
-              <% recipe.ingredients.order(:name).each do |ingredient| %>
-                <span class="ingredient-tag"><%= ingredient.name %></span>
-              <% end %>
+        <%= link_to recipe_path(recipe), class: "card-link", target: "_blank", rel: "noopener" do %>
+          <div class="card-image">🍳</div>
+          <div class="card-content">
+            <h3><%= recipe.title %></h3>
+            <p><%= recipe.description %></p>
+            <div class="card-meta">
+              <span><%= recipe.category %></span>
+              <span><%= recipe.time %></span>
             </div>
-          <% end %>
-          <div class="card-actions">
-            <%= link_to "Edit", edit_recipe_path(recipe), class: "btn btn-secondary" %>
+            <% if recipe.ingredients.any? %>
+              <div class="ingredient-tags">
+                <% recipe.ingredients.order(:name).each do |ingredient| %>
+                  <span class="ingredient-tag"><%= ingredient.name %></span>
+                <% end %>
+              </div>
+            <% end %>
           </div>
+        <% end %>
+
+        <div class="card-actions">
+          <%= link_to "Edit", edit_recipe_path(recipe), class: "btn btn-secondary" %>
         </div>
       </article>
     <% end %>

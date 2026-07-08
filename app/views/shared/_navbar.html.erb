@@ -6,6 +6,7 @@
   <div class="nav-links">
     <%= link_to "Home", root_path %>
     <%= link_to "About", about_path %>
+    <%= link_to "Chefs", chefs_path %>
     <% if chef_signed_in? %>
       <%= link_to "Recipes", recipes_path %>
       <%= link_to "Chat", chat_path %>
