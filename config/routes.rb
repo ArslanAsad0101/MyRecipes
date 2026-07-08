@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :recipes, only: [] do
     resources :comments, only: :create
   end
+
+  resources :ingredients, only: %i[index new create]
+
   get "chef/signup", to: "welcome#signup", as: :chef_signup
   post "chef/signup", to: "welcome#create_chef"
   get "chef/login", to: "welcome#login", as: :chef_login

@@ -1,0 +1,8 @@
+<div class="toast-container" data-controller="toast">
+  <% flash.each do |type, message| %>
+    <% toast_class = type == "alert" ? "toast-error" : "toast-success" %>
+    <div class="toast <%= toast_class %>" data-toast-target="message">
+      <p><%= message %></p>
+    </div>
+  <% end %>
+</div>

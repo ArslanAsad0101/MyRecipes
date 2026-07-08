@@ -1,0 +1,29 @@
+<section class="section">
+  <div class="form-card">
+    <h2>Add Ingredient</h2>
+    <p>Add a shared ingredient that all chefs can use when creating recipes.</p>
+
+    <% if @ingredient.errors.any? %>
+      <div class="info-card">
+        <h3>Please fix these errors:</h3>
+        <ul>
+          <% @ingredient.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @ingredient, local: true do |form| %>
+      <div class="form-field">
+        <%= form.label :name, "Ingredient name" %>
+        <%= form.text_field :name, placeholder: "e.g. Garlic" %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Add Ingredient", class: "btn btn-primary" %>
+        <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</section>

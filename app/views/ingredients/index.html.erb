@@ -1,0 +1,50 @@
+<section class="section">
+  <div class="section-header">
+    <h2>Ingredient Management</h2>
+    <p>Add and manage ingredients available when chefs create recipes.</p>
+  </div>
+
+  <div class="grid-two-column">
+    <div class="form-card">
+      <h3>Add New Ingredient</h3>
+
+      <% if @ingredient.errors.any? %>
+        <div class="info-card">
+          <h3>Please fix these errors:</h3>
+          <ul>
+            <% @ingredient.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @ingredient, url: ingredients_path, local: true do |form| %>
+        <div class="form-field">
+          <%= form.label :name, "Ingredient name" %>
+          <%= form.text_field :name, placeholder: "e.g. Garlic" %>
+        </div>
+
+        <div class="form-actions">
+          <%= form.submit "Add Ingredient", class: "btn btn-primary" %>
+          <%= link_to "Back to Home", root_path, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="list-card" data-controller="ingredient-search">
+      <div class="list-card-header">
+        <h3>Available Ingredients</h3>
+        <input type="search" data-ingredient-search-target="search" placeholder="Search ingredients" class="ingredient-search" aria-label="Search ingredients" data-action="input->ingredient-search#filter">
+      </div>
+
+      <div class="ingredient-list">
+        <% @ingredients.each do |ingredient| %>
+          <div class="ingredient-item" data-ingredient-search-target="item" data-ingredient-name="<%= ingredient.name.downcase %>">
+            <%= ingredient.name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -35,11 +35,12 @@
         <%= form.text_field :time %>
       </div>
 
-      <div class="form-field">
+      <div class="form-field" data-controller="ingredient-select">
         <%= form.label :ingredient_ids, "Ingredients" %>
-        <p class="form-help">Hold Ctrl/Cmd to select multiple ingredients.</p>
+        <p class="form-help">Type to search, then hold Ctrl/Cmd to select multiple ingredients.</p>
+        <input type="search" data-ingredient-select-target="search" placeholder="Search ingredients..." class="ingredient-search-field" data-action="input->ingredient-select#filter">
         <div class="ingredient-picker">
-          <%= form.collection_select :ingredient_ids, Ingredient.order(:name), :id, :name, { include_blank: false }, { multiple: true, size: 8, class: "ingredient-select" } %>
+          <%= form.collection_select :ingredient_ids, Ingredient.order(:name), :id, :name, { include_blank: false }, { multiple: true, size: 8, class: "ingredient-select", data: { ingredient_select_target: "select" } } %>
         </div>
       </div>
 
