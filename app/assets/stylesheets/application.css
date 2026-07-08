@@ -172,6 +172,23 @@ a {
   font-size: 0.85rem;
 }
 
+.ingredient-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+}
+
+.ingredient-tag {
+  background: #fff9f0;
+  border: 1px solid #f4c97d;
+  color: #8a3f0f;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 .card-actions {
   margin-top: 0.9rem;
 }
@@ -211,17 +228,49 @@ a {
 }
 
 .form-field input,
-.form-field textarea {
+.form-field textarea,
+.ingredient-select {
   width: 100%;
   padding: 0.8rem 0.95rem;
   border: 1px solid #e7cfa3;
   border-radius: 12px;
   font: inherit;
+  background: #fffdfa;
 }
 
 .form-field textarea {
   min-height: 110px;
   resize: vertical;
+}
+
+.form-help {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: #8a6a4b;
+}
+
+.ingredient-picker {
+  border: 1px solid #f0d8aa;
+  border-radius: 14px;
+  padding: 0.4rem;
+  background: linear-gradient(135deg, #fff9f0 0%, #fff3e6 100%);
+}
+
+.ingredient-select {
+  min-height: 180px;
+  border: none;
+  background: transparent;
+  padding: 0.25rem;
+}
+
+.ingredient-select option {
+  padding: 0.45rem 0.55rem;
+  border-radius: 8px;
+}
+
+.ingredient-select option:checked {
+  background: #8a3f0f linear-gradient(0deg, #8a3f0f 0%, #a75213 100%);
+  color: white;
 }
 
 .form-actions {

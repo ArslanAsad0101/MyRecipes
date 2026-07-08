@@ -22,6 +22,13 @@
             <span><%= recipe.category %></span>
             <span><%= recipe.time %></span>
           </div>
+          <% if recipe.ingredients.any? %>
+            <div class="ingredient-tags">
+              <% recipe.ingredients.order(:name).each do |ingredient| %>
+                <span class="ingredient-tag"><%= ingredient.name %></span>
+              <% end %>
+            </div>
+          <% end %>
           <div class="card-actions">
             <%= link_to "Edit", edit_recipe_path(recipe), class: "btn btn-secondary" %>
           </div>

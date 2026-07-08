@@ -35,6 +35,14 @@
         <%= form.text_field :time %>
       </div>
 
+      <div class="form-field">
+        <%= form.label :ingredient_ids, "Ingredients" %>
+        <p class="form-help">Hold Ctrl/Cmd to select multiple ingredients.</p>
+        <div class="ingredient-picker">
+          <%= form.collection_select :ingredient_ids, Ingredient.order(:name), :id, :name, { include_blank: false }, { multiple: true, size: 8, class: "ingredient-select" } %>
+        </div>
+      </div>
+
       <div class="form-actions">
         <%= form.submit "Create Recipe", class: "btn btn-primary" %>
         <%= link_to "Back to Recipes", recipes_path, class: "btn btn-secondary" %>

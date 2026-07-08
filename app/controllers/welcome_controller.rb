@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   before_action :require_chef!, only: %i[new create edit update]
 
   def index
-    @featured_recipes = Recipe.includes(:chef).order(created_at: :desc)
+    @featured_recipes = Recipe.includes(:chef, :ingredients).order(created_at: :desc)
   end
 
   def about
@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
     redirect_to chef_signup_path, alert: "Please sign up as a chef to view your recipes." unless chef_signed_in?
     return if performed?
 
-    @recipes = current_chef.recipes.includes(:chef).order(created_at: :desc)
+    @recipes = current_chef.recipes.includes(:chef, :ingredients).order(created_at: :desc)
   end
 
   def new
@@ -89,7 +89,7 @@ class WelcomeController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:title, :description, :category, :time)
+    params.require(:recipe).permit(:title, :description, :category, :time, ingredient_ids: [])
   end
 
   def chef_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_102811) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_08_120001) do
   create_table "chefs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -28,6 +28,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_102811) do
     t.index ["chef_a_id", "chef_b_id"], name: "index_conversations_on_chef_a_id_and_chef_b_id", unique: true
   end
 
+  create_table "ingredients", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_ingredients_on_name", unique: true
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "body"
     t.integer "chef_id", null: false
@@ -36,6 +43,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_102811) do
     t.datetime "updated_at", null: false
     t.index ["chef_id"], name: "index_messages_on_chef_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+  end
+
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "ingredient_id", null: false
+    t.integer "recipe_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id", "ingredient_id"], name: "index_recipe_ingredients_on_recipe_id_and_ingredient_id", unique: true
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -51,5 +68,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_102811) do
 
   add_foreign_key "messages", "chefs"
   add_foreign_key "messages", "conversations"
+  add_foreign_key "recipe_ingredients", "ingredients"
+  add_foreign_key "recipe_ingredients", "recipes"
   add_foreign_key "recipes", "chefs"
 end
