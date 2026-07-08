@@ -5,9 +5,11 @@ one:
   description: MyText
   category: MyString
   time: MyString
+  chef: one
 
 two:
   title: MyString
   description: MyText
   category: MyString
   time: MyString
+  chef: two

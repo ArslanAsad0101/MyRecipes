@@ -52,6 +52,7 @@ class WelcomeController < ApplicationController
 
     if @chef.save
       session[:chef_id] = @chef.id
+      cookies.signed[:chef_id] = { value: @chef.id, httponly: true, same_site: :lax }
       redirect_to recipes_path, notice: "Chef account created successfully."
     else
       render :signup, status: :unprocessable_entity
@@ -67,6 +68,7 @@ class WelcomeController < ApplicationController
 
     if @chef&.authenticate(params[:chef][:password])
       session[:chef_id] = @chef.id
+      cookies.signed[:chef_id] = { value: @chef.id, httponly: true, same_site: :lax }
       redirect_to recipes_path, notice: "Welcome back, #{@chef.name}."
     else
       @chef = Chef.new(email: params[:chef][:email])
@@ -77,6 +79,7 @@ class WelcomeController < ApplicationController
 
   def logout
     session[:chef_id] = nil
+    cookies.delete(:chef_id)
     redirect_to recipes_path, notice: "You have been logged out."
   end
 

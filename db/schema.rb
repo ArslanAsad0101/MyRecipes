@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_08_075239) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_08_102811) do
   create_table "chefs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -18,6 +18,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_075239) do
     t.string "password_digest"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_chefs_on_email", unique: true
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer "chef_a_id"
+    t.integer "chef_b_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_a_id", "chef_b_id"], name: "index_conversations_on_chef_a_id_and_chef_b_id", unique: true
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.integer "chef_id", null: false
+    t.integer "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chef_id"], name: "index_messages_on_chef_id"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -31,5 +49,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_08_075239) do
     t.index ["chef_id"], name: "index_recipes_on_chef_id"
   end
 
+  add_foreign_key "messages", "chefs"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "recipes", "chefs"
 end

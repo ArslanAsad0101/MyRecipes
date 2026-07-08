@@ -1,6 +1,11 @@
 require "test_helper"
 
 class WelcomeControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @chef = Chef.create!(name: "Test Chef", email: "test-chef@example.com", password: "password")
+    post chef_login_path, params: { chef: { email: @chef.email, password: "password" } }
+  end
+
   test "creates a recipe and stores it in the database" do
     assert_difference("Recipe.count", 1) do
       post recipes_path, params: {
@@ -18,7 +23,7 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "updates an existing recipe and persists the change" do
-    recipe = Recipe.create!(title: "Old Title", description: "Old description", category: "Lunch", time: "10 min")
+    recipe = Recipe.create!(title: "Old Title", description: "Old description", category: "Lunch", time: "10 min", chef: @chef)
 
     patch recipe_path(recipe), params: {
       recipe: {

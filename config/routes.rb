@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable"
+
   root "welcome#index"
   get "welcome", to: "welcome#index"
   get "about", to: "welcome#about"
@@ -14,6 +16,10 @@ Rails.application.routes.draw do
   post "chef/login", to: "welcome#create_login"
   delete "chef/logout", to: "welcome#logout", as: :chef_logout
   get "contact", to: "welcome#contact"
+  get "chat", to: "conversations#index", as: :chat
+  resources :conversations, only: %i[index create show] do
+    resources :messages, only: :create
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

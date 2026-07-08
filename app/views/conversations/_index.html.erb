@@ -1,0 +1,73 @@
+<div class="chat-shell">
+  <div class="chat-sidebar">
+    <div class="chat-sidebar-header">
+      <h2>Chats</h2>
+      <%= form_with url: chat_path, method: :get, local: true do |f| %>
+        <%= f.text_field :query, placeholder: "Search chefs", value: params[:query] %>
+      <% end %>
+    </div>
+
+    <div class="chat-list">
+      <% @conversations.each do |conversation| %>
+        <% other = conversation.other_chef_for(current_chef) %>
+        <% unread_count = conversation.unread_count_for(current_chef) %>
+        <%= link_to conversation_path(conversation), class: "chat-item #{'active' if @conversation&.id == conversation.id} #{'unread' if unread_count.positive?}", data: { conversation_id: conversation.id } do %>
+          <div class="chat-item-top">
+            <strong><%= other.name %></strong>
+            <% if unread_count.positive? %>
+              <span class="unread-badge"><%= unread_count %></span>
+            <% end %>
+          </div>
+          <div class="chat-item-meta">
+            <span><%= conversation.messages.last&.body || "Start a conversation" %></span>
+            <span class="chat-status online">● online</span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="chat-available">
+      <h3>Find chefs</h3>
+      <% @available_chefs.each do |chef| %>
+        <%= button_to chef.name, conversations_path(chef_id: chef.id), method: :post, class: "chat-start-btn" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="chat-main">
+    <% if @conversation.present? %>
+      <div class="chat-header">
+        <div>
+          <h2><%= @conversation.other_chef_for(current_chef).name %></h2>
+          <div class="chat-status online">● online now</div>
+        </div>
+      </div>
+
+      <div class="chat-messages" data-controller="chat" data-chat-conversation-id-value="<%= @conversation.id %>" data-chat-current-chef-id-value="<%= current_chef.id %>">
+        <ul id="messages-list">
+          <% grouped_messages = @conversation.messages.order(:created_at).group_by { |message| message.created_at.to_date } %>
+          <% grouped_messages.each do |date, messages| %>
+            <li class="message-date-separator"><%= date == Date.current ? "Today" : date.strftime("%b %d, %Y") %></li>
+            <% messages.each do |message| %>
+              <li class="message-bubble <%= message.chef_id == current_chef.id ? 'mine' : 'their' %>">
+                <strong><%= message.chef.name %></strong>
+                <div><%= message.body %></div>
+                <span><%= message.created_at.strftime("%H:%M") %></span>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <div id="typing-indicator" class="typing-indicator" style="display: none;">Typing...</div>
+      </div>
+
+      <%= form_with model: @message, url: conversation_messages_path(@conversation), html: { data: { controller: "chat-form", action: "submit->chat-form#submit" } } do |f| %>
+        <div class="chat-composer">
+          <%= f.text_field :body, placeholder: "Type your message..." %>
+          <%= f.submit "Send", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="empty-chat">Select a conversation to start chatting.</div>
+    <% end %>
+  </div>
+</div>
