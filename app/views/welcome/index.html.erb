@@ -13,39 +13,11 @@
     <h2>Global Recipes</h2>
   </div>
 
-  <div class="card-grid">
-    <% @featured_recipes.each do |recipe| %>
-      <article class="recipe-card" data-controller="recipe-like" data-recipe-like-recipe-id-value="<%= recipe.id %>">
-        <%= turbo_stream_from recipe %>
-        <%= link_to recipe_path(recipe), class: "card-link" do %>
-          <div class="card-image">
-            <%= image_tag recipe.image_url, alt: recipe.title, class: "recipe-card-image" %>
-          </div>
-          <div class="card-content">
-            <h3><%= recipe.title %></h3>
-            <p><%= recipe.description %></p>
-            <div class="card-meta">
-              <span><%= recipe.category %></span>
-              <span><%= recipe.time %></span>
-              <span>By <%= recipe.chef.name %></span>
-            </div>
-            <% if recipe.ingredients.any? %>
-              <div class="ingredient-tags">
-                <% recipe.ingredients.order(:name).each do |ingredient| %>
-                  <span class="ingredient-tag"><%= ingredient.name %></span>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+  <%= turbo_stream_from :recipes %>
 
-        <div class="recipe-like-row">
-          <button class="like-button" data-recipe-like-target="button" data-action="click->recipe-like#like" aria-label="Like recipe">
-            ❤️ Like
-          </button>
-          <%= render partial: "welcome/recipe_like_count", locals: { recipe: recipe } %>
-        </div>
-      </article>
+  <div id="recipes" class="card-grid">
+    <% @featured_recipes.each do |recipe| %>
+      <%= render partial: "welcome/recipe_card", locals: { recipe: recipe } %>
     <% end %>
   </div>
 </section>
