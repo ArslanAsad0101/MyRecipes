@@ -6,9 +6,9 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.new
   end
 
-  def new
-    @ingredient = Ingredient.new
-  end
+  # def new
+  #   # @ingredient = Ingredient.new
+  # end
 
   def create
     @ingredient = Ingredient.new(ingredient_params)

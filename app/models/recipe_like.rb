@@ -4,7 +4,7 @@ class RecipeLike < ApplicationRecord
 
   validates :recipe_id, presence: true
   validates :chef_id, uniqueness: { scope: :recipe_id, allow_nil: true, message: "has already liked this recipe" }
-  validates :visitor_token, uniqueness: { scope: :recipe_id, allow_nil: true, message: "has already liked this recipe" }
+  # validates :visitor_token, uniqueness: { scope: :recipe_id, allow_nil: true, message: "has already liked this recipe" }
 
   after_create_commit :broadcast_like_count
   before_validation :ensure_visitor_token
@@ -13,7 +13,7 @@ class RecipeLike < ApplicationRecord
 
   def broadcast_like_count
     recipe.reload
-    broadcast_replace_to recipe, target: "likes_count_recipe_#{recipe.id}", partial: "welcome/recipe_like_count", locals: { recipe: recipe }
+    broadcast_replace_to recipe, target: "likes_count_recipe_#{recipe.id}", partial: "pages/recipe_like_count", locals: { recipe: recipe }
   end
 
   def ensure_visitor_token

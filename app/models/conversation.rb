@@ -7,10 +7,10 @@ class Conversation < ApplicationRecord
 
   validates :chef_a_id, :chef_b_id, presence: true
 
-  def self.find_or_create_between(chef_a, chef_b)
-    first_id, second_id = [chef_a.id, chef_b.id].sort
-    find_or_create_by!(chef_a_id: first_id, chef_b_id: second_id)
-  end
+  # def self.find_or_create_between(chef_a, chef_b)
+  #   first_id, second_id = [chef_a.id, chef_b.id].sort
+  #   find_or_create_by!(chef_a_id: first_id, chef_b_id: second_id)
+  # end
 
   def other_chef_for(chef)
     return chef_b if chef_a_id == chef.id

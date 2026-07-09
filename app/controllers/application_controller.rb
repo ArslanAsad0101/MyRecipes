@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
     @current_chef ||= begin
       if session[:chef_id]
         Chef.find_by(id: session[:chef_id])
-      elsif cookies.signed[:chef_id]
-        Chef.find_by(id: cookies.signed[:chef_id])
+      # elsif cookies.signed[:chef_id]
+      #   Chef.find_by(id: cookies.signed[:chef_id])
       end
     end
   end

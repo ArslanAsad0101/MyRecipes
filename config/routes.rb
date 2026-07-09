@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
 
-  root "welcome#index"
-  get "welcome", to: "welcome#index"
-  get "about", to: "welcome#about"
-  get "recipes", to: "welcome#recipes"
-  get "recipes/new", to: "welcome#new", as: :new_recipe
-  post "recipes", to: "welcome#create"
-  get "recipes/:id", to: "welcome#show", as: :recipe
-  get "recipes/:id/edit", to: "welcome#edit", as: :edit_recipe
-  get "chefs", to: "welcome#chefs", as: :chefs
-  get "chefs/:id/recipes", to: "welcome#chef_recipes", as: :chef_recipes
-  patch "recipes/:id", to: "welcome#update"
-  put "recipes/:id", to: "welcome#update"
+  root "pages#index"
+  get "welcome", to: "pages#index"
+  get "about", to: "pages#about"
+  get "recipes", to: "pages#recipes"
+  get "recipes/new", to: "pages#new", as: :new_recipe
+  post "recipes", to: "pages#create"
+  get "recipes/:id", to: "pages#show", as: :recipe
+  get "recipes/:id/edit", to: "pages#edit", as: :edit_recipe
+  get "chefs", to: "pages#chefs", as: :chefs
+  get "chefs/:id/recipes", to: "pages#chef_recipes", as: :chef_recipes
+  patch "recipes/:id", to: "pages#update"
+  put "recipes/:id", to: "pages#update"
 
   resources :recipes, only: [] do
     resources :comments, only: :create
@@ -21,12 +21,12 @@ Rails.application.routes.draw do
 
   resources :ingredients, only: %i[index new create]
 
-  get "chef/signup", to: "welcome#signup", as: :chef_signup
-  post "chef/signup", to: "welcome#create_chef"
-  get "chef/login", to: "welcome#login", as: :chef_login
-  post "chef/login", to: "welcome#create_login"
-  delete "chef/logout", to: "welcome#logout", as: :chef_logout
-  get "contact", to: "welcome#contact"
+  get "chef/signup", to: "pages#signup", as: :chef_signup
+  post "chef/signup", to: "pages#create_chef"
+  get "chef/login", to: "pages#login", as: :chef_login
+  post "chef/login", to: "pages#create_login"
+  delete "chef/logout", to: "pages#logout", as: :chef_logout
+  get "contact", to: "pages#contact"
   get "chat", to: "conversations#index", as: :chat
   resources :conversations, only: %i[index create show] do
     resources :messages, only: :create

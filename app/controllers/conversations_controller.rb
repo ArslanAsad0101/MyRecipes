@@ -18,14 +18,14 @@ class ConversationsController < ApplicationController
   def create
     other_chef = Chef.find(params[:chef_id])
 
-    if other_chef.id == current_chef.id
-      redirect_to chat_path, alert: "You cannot start a chat with yourself." and return
-    end
+    # if other_chef.id == current_chef.id
+    #   redirect_to chat_path, alert: "You cannot start a chat with yourself." and return
+    # end
 
     conversation = Conversation.find_or_create_between(current_chef, other_chef)
     redirect_to conversation_path(conversation)
-  rescue ActiveRecord::RecordNotFound
-    redirect_to chat_path, alert: "Chef not found."
+  # rescue ActiveRecord::RecordNotFound
+  #   redirect_to chat_path, alert: "Chef not found."
   end
 
   def show
@@ -33,9 +33,9 @@ class ConversationsController < ApplicationController
     @available_chefs = Chef.where.not(id: current_chef.id)
     @message = Message.new
 
-    unless @conversation.includes_chef?(current_chef.id)
-      redirect_to chat_path, alert: "You are not allowed to access that conversation."
-    end
+    # unless @conversation.includes_chef?(current_chef.id)
+    #   redirect_to chat_path, alert: "You are not allowed to access that conversation."
+    # end
   end
 
   private

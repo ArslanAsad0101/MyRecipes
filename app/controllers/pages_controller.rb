@@ -1,0 +1,2 @@
+class PagesController < WelcomeController
+end

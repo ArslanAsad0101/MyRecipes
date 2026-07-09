@@ -12,7 +12,7 @@
   <% if @recipes.any? %>
     <div class="card-grid">
       <% @recipes.each do |recipe| %>
-        <%= render partial: "welcome/recipe_card", locals: { recipe: recipe } %>
+        <%= render partial: "pages/recipe_card", locals: { recipe: recipe } %>
       <% end %>
     </div>
   <% else %>
