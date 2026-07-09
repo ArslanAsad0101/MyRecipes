@@ -13,6 +13,7 @@
     <div class="card-grid">
       <% @recipes.each do |recipe| %>
         <article class="recipe-card" data-controller="recipe-like" data-recipe-like-recipe-id-value="<%= recipe.id %>">
+          <%= turbo_stream_from recipe %>
           <%= link_to recipe_path(recipe), class: "card-link" do %>
             <div class="card-image">
               <%= image_tag recipe.image_url, alt: recipe.title, class: "recipe-card-image" %>
@@ -38,7 +39,7 @@
             <button class="like-button" data-recipe-like-target="button" data-action="click->recipe-like#like" aria-label="Like recipe">
               ❤️ Like
             </button>
-            <span class="like-count" data-recipe-like-target="count"><%= recipe.likes_count %></span>
+            <%= render partial: "welcome/recipe_like_count", locals: { recipe: recipe } %>
           </div>
         </article>
       <% end %>

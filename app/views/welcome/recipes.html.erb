@@ -13,7 +13,8 @@
   </div>
   <div class="card-grid">
     <% @recipes.each do |recipe| %>
-      <article class="recipe-card">
+      <article class="recipe-card" data-controller="recipe-like" data-recipe-like-recipe-id-value="<%= recipe.id %>">
+        <%= turbo_stream_from recipe %>
         <%= link_to recipe_path(recipe), class: "card-link", target: "_blank", rel: "noopener" do %>
           <div class="card-image">
             <%= image_tag recipe.image_url, alt: recipe.title, class: "recipe-card-image" %>

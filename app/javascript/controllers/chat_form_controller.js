@@ -19,22 +19,9 @@ export default class extends Controller {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          this.appendMessage(data.message)
           form.reset()
         }
       })
       .catch(() => {})
-  }
-
-  appendMessage(data) {
-    const chatElement = document.querySelector("[data-controller='chat']")
-    const list = document.getElementById("messages-list")
-    if (!chatElement || !list || !data) return
-
-    const item = document.createElement("li")
-    item.className = `message-bubble ${Number(data.sender_id) === Number(chatElement.dataset.chatCurrentChefIdValue) ? "mine" : "their"}`
-    item.innerHTML = `<strong>${data.sender_name}</strong><div>${data.body}</div><span>${data.created_at}</span>`
-    list.appendChild(item)
-    list.scrollTop = list.scrollHeight
   }
 }
