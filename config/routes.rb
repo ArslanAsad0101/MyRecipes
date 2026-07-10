@@ -4,15 +4,15 @@ Rails.application.routes.draw do
   root "pages#index"
   get "welcome", to: "pages#index"
   get "about", to: "pages#about"
-  get "recipes", to: "pages#recipes"
-  get "recipes/new", to: "pages#new", as: :new_recipe
-  post "recipes", to: "pages#create"
-  get "recipes/:id", to: "pages#show", as: :recipe
-  get "recipes/:id/edit", to: "pages#edit", as: :edit_recipe
+  get "recipes", to: "recipes#index"
+  get "recipes/new", to: "recipes#new", as: :new_recipe
+  post "recipes", to: "recipes#create"
+  get "recipes/:id", to: "recipes#show", as: :recipe
+  get "recipes/:id/edit", to: "recipes#edit", as: :edit_recipe
   get "chefs", to: "pages#chefs", as: :chefs
   get "chefs/:id/recipes", to: "pages#chef_recipes", as: :chef_recipes
-  patch "recipes/:id", to: "pages#update"
-  put "recipes/:id", to: "pages#update"
+  patch "recipes/:id", to: "recipes#update"
+  put "recipes/:id", to: "recipes#update"
 
   resources :recipes, only: [] do
     resources :comments, only: :create
