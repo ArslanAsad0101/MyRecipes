@@ -18,6 +18,6 @@ class Recipe < ApplicationRecord
   private
 
   def broadcast_prepend_to_recipes
-    broadcast_prepend_to :recipes, target: :recipes, partial: "pages/recipe_card", locals: { recipe: self }
+    broadcast_prepend_to :recipes, target: :recipes, partial: "recipes/recipe_card", locals: { recipe: self }
   end
 end

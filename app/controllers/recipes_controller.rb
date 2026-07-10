@@ -6,12 +6,12 @@ class RecipesController < ApplicationController
     return if performed?
 
     @recipes = current_chef.recipes.includes(:chef, :ingredients).order(created_at: :desc)
-    render "pages/recipes"
+    render "recipes/index"
   end
 
   def new
     @recipe = Recipe.new
-    render "pages/new"
+    render "recipes/new"
   end
 
   def create
@@ -21,7 +21,7 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to recipes_path, notice: "Recipe created successfully."
     else
-      render "pages/new", status: :unprocessable_entity
+      render "recipes/new", status: :unprocessable_entity
     end
   end
 
@@ -29,14 +29,14 @@ class RecipesController < ApplicationController
     @recipe = Recipe.includes(:chef, :ingredients, comments: :chef).find(params[:id])
     @comments = @recipe.comments.order(created_at: :desc)
     @comment = Comment.new
-    render "pages/show"
+    render "recipes/show"
   end
 
   def edit
     @recipe = current_chef.recipes.find_by(id: params[:id])
     raise AccessDenied if @recipe.nil?
 
-    render "pages/edit"
+    render "recipes/edit"
   end
 
   def update
@@ -49,7 +49,7 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to recipes_path, notice: "Recipe updated successfully."
     else
-      render "pages/edit", status: :unprocessable_entity
+      render "recipes/edit", status: :unprocessable_entity
     end
   end
 

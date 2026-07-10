@@ -17,7 +17,7 @@
 
   <div id="recipes" class="card-grid">
     <% @featured_recipes.each do |recipe| %>
-      <%= render partial: "pages/recipe_card", locals: { recipe: recipe } %>
+      <%= render partial: "recipes/recipe_card", locals: { recipe: recipe } %>
     <% end %>
   </div>
 </section>
