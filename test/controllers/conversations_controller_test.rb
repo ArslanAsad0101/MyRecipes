@@ -4,6 +4,7 @@ class ConversationsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @chef_one = Chef.create!(name: "Alice", email: "alice@example.com", password: "password")
     @chef_two = Chef.create!(name: "Bob", email: "bob@example.com", password: "password")
+    @chef_three = Chef.create!(name: "Carol", email: "carol@example.com", password: "password")
   end
 
   test "logged in chef can create a conversation with another chef" do
@@ -31,5 +32,16 @@ class ConversationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal 1, conversation.messages.count
     assert_equal "Hello there", conversation.messages.last.body
+  end
+
+  test "logged in chef sees a friendly forbidden page for an inaccessible conversation" do
+    post chef_login_path, params: { chef: { email: @chef_one.email, password: "password" } }
+
+    conversation = Conversation.create!(chef_a: @chef_two, chef_b: @chef_three)
+
+    get conversation_path(conversation)
+
+    assert_response :forbidden
+    assert_includes response.body, "You are not allowed to access this conversation."
   end
 end

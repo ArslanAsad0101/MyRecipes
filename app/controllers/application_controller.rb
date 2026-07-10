@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  class AccessDenied < StandardError; end
+
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -6,6 +8,9 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   helper_method :current_chef, :chef_signed_in?
+
+  rescue_from AccessDenied, with: :render_forbidden
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   private
 
@@ -27,5 +32,19 @@ class ApplicationController < ActionController::Base
     return if chef_signed_in?
 
     redirect_to chef_signup_path, alert: "Please sign up as a chef to manage recipes."
+  end
+
+  def render_forbidden(_exception = nil)
+    respond_to do |format|
+      format.html { render "errors/forbidden", status: :forbidden, layout: "application" }
+      format.json { render json: { error: "You are not allowed to access this resource." }, status: :forbidden }
+    end
+  end
+
+  def render_not_found(_exception = nil)
+    respond_to do |format|
+      format.html { render "errors/not_found", status: :not_found, layout: "application" }
+      format.json { render json: { error: "The requested resource was not found." }, status: :not_found }
+    end
   end
 end

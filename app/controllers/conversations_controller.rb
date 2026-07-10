@@ -42,5 +42,6 @@ class ConversationsController < ApplicationController
 
   def set_conversation
     @conversation = Conversation.find(params[:id])
+    raise AccessDenied unless @conversation.includes_chef?(current_chef.id)
   end
 end
